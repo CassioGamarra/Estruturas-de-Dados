@@ -25,10 +25,12 @@ int main(){
 	for(int i = 0; i < 20; i++){
 		lista=(inserir(rand()%100, lista));
 	}
+	printf("Lista original:\n");
 	exibir(lista);
-    	lista = excluir(lista);
-    	printf("\n\nNova lista:\n");
-    	exibir(lista);
+    lista = excluir(lista);
+    printf("\n\nNova lista:\n");
+
+   	exibir(lista);
 	return 1;
 }
 
@@ -65,25 +67,26 @@ Celula *excluir(Celula *l){
 	Celula *p, *pR;
 	if(!l) return l;
 
-    	p = l;
-    	l = l->prox;
-    	free(p);
+    p = l;
+    l = l->prox;
+    free(p);
 
-    	for(pR = NULL, p = l; p; pR = p, p = p->prox){
-    		if(!p->prox){
-    			free(p);
-    			pR->prox = NULL;
-    			break;
-    		}
-   	 }
-
-   	 return l;
+    if(l->prox){
+        for(pR = NULL, p = l; p; pR = p, p = p->prox){
+            if(!p->prox){
+                free(p);
+                pR->prox = NULL;
+                break;
+            }
+        }
+    }
+    return l;
 }
 
 //Exibir os elementos da lista
 void exibir(Celula *l){
 	Celula *p;
-    	int i = 0;
+    int i = 0;
 	for(p = l; p; p = p->prox, i++){
 		printf("%d elemento: %d\n", i+1, p->dado);
 	}
