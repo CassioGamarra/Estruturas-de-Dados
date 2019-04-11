@@ -72,11 +72,8 @@ int somar(Celula *l){
 //Exibir lista
 void exibir(Celula *l){
 	Celula *p;
-	int i = 0;
 
-	for(p = l; p; p = p->prox, i++){
-		printf("%d -> %d\n", i, p->dado);
+	for(p = l; p; p = p->prox){
+		printf("%d\n", p->dado);
 	}
 }
-
-
