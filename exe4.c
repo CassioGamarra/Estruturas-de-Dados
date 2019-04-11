@@ -1,9 +1,7 @@
-/*Escreva um programa que leia um arquivo texto (com números inteiros um abaixo do outro)
-e salve os números em uma lista encadeada simples.
-Ao final, o programa deverá exibir os números armazenados na lista e mostrar o maior deles.*/
-
+/*Escreva uma função que receba uma lista encadeada simples e retorne quantos elementos há.*/
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 typedef struct no{
 	int dado;
@@ -11,29 +9,25 @@ typedef struct no{
 } Celula;
 
 Celula *inserir(int valor, Celula *l);
-Celula *popular(Celula *l);
-int maiorNumero(Celula *l);
 void exibir(Celula *l);
+int contar(Celula *l);
 
 int main(){
 	Celula *lista = NULL;
-	Celula *p;
+	int contador;
 
-	lista = popular(lista);
-	if(!lista){
-		printf("Erro na abertura do arquivo ou na alocação de memória!");
-		exit(0);
+	srand(time(NULL));
+
+	for(int i = 0;i < 20; i++){
+		lista = inserir(rand()%100, lista);
 	}
-
-	printf("Valores no arquivo:\n");
 	exibir(lista);
-
-    printf("\nMaior numero: %d", maiorNumero(lista));
+	contador = contar(lista);
+	printf("\nNumero de elementos na lista: %d", contador);
 
 	return 1;
 }
 
-//Inserir de forma ordenada na lista
 Celula *inserir(int valor, Celula *l){
 	Celula *p, *pR, *novo;
 
@@ -61,48 +55,21 @@ Celula *inserir(int valor, Celula *l){
 	return l;
 }
 
-Celula *popular(Celula *l){
-	FILE *entrada;
-	char nomeArquivo[100];
-	int dado;
-
-    printf("Informe o nome do arquivo: ");
-    scanf("%s", nomeArquivo);
-
-	entrada = fopen(nomeArquivo,"r");
-
-	if(!entrada) return l;
-
-	//Pega os valores do arquivo e insere de forma ordenada
-	do{
-		fscanf(entrada, "%d", &dado);
-		l = inserir(dado, l);
-	}while(!feof(entrada));
-
-	fclose(entrada);
-
-	return l;
-}
-
-//Encontra o maior numero
-int maiorNumero(Celula *l){
-    Celula *p;
-    int valor;
-
-    for(p = l; p; p = p->prox){
-        if(!p->prox){
-            valor = p->dado;
-        }
-    }
-    return valor;
-}
-
-//Exibir celula
 void exibir(Celula *l){
 	Celula *p;
 	int i = 0;
 
 	for(p = l; p; p = p->prox, i++){
-		printf("%d\n", p->dado);
+		printf("%d -> %d\n", i, p->dado);
 	}
+
+}
+int contar(Celula *l){
+	Celula *p;
+	int cont = 0;
+
+	for(p = l; p; p = p->prox, cont++){
+
+	}
+	return cont;
 }
