@@ -46,8 +46,10 @@ Celula *inserir(int valor, Celula *l){
 		novo->prox = l;
 		return novo;
 	}
+	
 	//Inserir no fim
 	pR->prox = novo;
+	
 	//Inserir no meio
 	if(p){
 		novo->prox = p;
