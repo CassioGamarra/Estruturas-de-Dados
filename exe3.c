@@ -88,6 +88,3 @@ int contar(Celula *l){
 	}
 	return cont;
 }
-
-
-
