@@ -12,7 +12,6 @@ typedef struct no{
 	struct no *prox;
 } Celula;
 
-
 Celula *inserir(int valor, Celula *l);
 Celula *excluir(Celula *l);
 Celula *destruir(Celula *l) ;
