@@ -14,17 +14,17 @@ typedef struct{
 } Fila;
 
 void inicializarFila(Fila *f);
-void inserirFila(int valor, Fila *f, int prioritario);
+void inserirFila(int valor, Fila *f);
 void removerFila(Fila *f);
-void removerPrioritario(Fila *f);
 void retornar();
 void menu();
 
-Fila fila;
+Fila fila, filaPrioritaria;
 int contador = 1;
 
 int main(){
     inicializarFila(&fila);
+    inicializarFila(&filaPrioritaria);
     menu();
     return 0;
 }
@@ -33,12 +33,11 @@ void inicializarFila(Fila *f){
     f->cauda = NULL;
 }
 
-void inserirFila(int valor, Fila *f, int prioritario){
+void inserirFila(int valor, Fila *f){
     Celula *novo;
 
     novo = (Celula *)malloc(sizeof(Celula));
     novo->dado = valor;
-    novo->prioritario = prioritario;
     novo->prox = NULL;
 
     if(!f->cauda){
@@ -68,20 +67,6 @@ void removerFila(Fila *f){
         printf("\n\nFILA VAZIA!");
     }
 }
-void removerPrioritario(Fila *f){
-    Celula *p, *pR, *lixo;
-
-    p = f->cabeca;
-    for(pR = NULL; p; pR = p, p = p->prox){
-        if(p->prioritario == 1){
-            if(p->prox == NULL){
-                free(p);
-                f->cauda = pR;
-            }
-        }
-    }
-}
-
 
 void retornar(){
     printf("\t\nFila atualizada!");
@@ -105,22 +90,35 @@ void menu(){
             case 1:{
                 printf("\nDigite o código de chamada: ");
                 scanf("%d", &codigo);
-                inserirFila(codigo, &fila, 0);
+                inserirFila(codigo, &fila);
                 break;
             }
             case 2:{
                 printf("\nDigite o código de chamada: ");
                 scanf("%d", &codigo);
-                inserirFila(codigo, &fila, 1);
+                inserirFila(codigo, &filaPrioritaria);
                 break;
             }
             case 3:{
-                printf("Na cabeca: %d\nNa cauda: %d\n", fila.cabeca->dado, fila.cauda->dado);
+                printf("FILA NORMAL: %d\n", fila.cabeca->dado);
+                if(filaPrioritaria.cauda == NULL){
+                    printf("FILA NORMAL: %d\n", fila.cauda->dado);
+                }
+                else{
+                    printf("FILA PREFERENCIAL: %d\n", filaPrioritaria.cabeca->dado);
+                }
+
                 removerFila(&fila);
                 contador++;
                 printf("\nContador = %d\n", contador);
                 if(contador == 4){
-                    removerPrioritario(&fila);
+                    if(filaPrioritaria.cauda == NULL){
+                        removerFila(&fila);
+                    }
+                    else{
+                        printf("\nValor removido: %d",filaPrioritaria.cauda->dado);
+                        removerFila(&filaPrioritaria);
+                    }
                     contador = 0;
                 }
                 if(fila.cauda == NULL){
@@ -128,8 +126,14 @@ void menu(){
                     break;
                 }
 
-                printf("Situacao da fila apos remocoes!\n");
-                printf("Na cabeca: %d\nNa cauda: %d\n", fila.cabeca->dado, fila.cauda->dado);
+                printf("\n\nSituacao da fila apos remocoes!\n");
+                printf("FILA NORMAL: %d\n", fila.cabeca->dado);
+                if(filaPrioritaria.cauda == NULL){
+                    printf("FILA NORMAL: %d\n", fila.cauda->dado);
+                }else{
+                    printf("FILA PREFERENCIAL: %d\n", filaPrioritaria.cabeca->dado);
+                }
+
                 retornar();
                 break;
             }
