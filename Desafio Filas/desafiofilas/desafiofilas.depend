@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1558493566 source:c:\users\gnomo\documents\github\estruturas-de-dados\desafio filas\desafiofilas\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+
