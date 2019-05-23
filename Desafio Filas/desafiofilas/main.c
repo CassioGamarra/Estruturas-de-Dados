@@ -39,18 +39,20 @@ void inicializar(Fila *f){
 
 //Inserir na fila
 void inserirFila(int valor, Fila *f){
-    Celula *novo = (Celula *)malloc(sizeof(Celula));
-    novo->dado = valor;
-    novo->prox = NULL;
+    Celula *novo;
 
-    if(!f->fim){
-        f->inicio = novo;
-        f->fim = novo;
-    }
-    else{
-        f->fim->prox = novo;
-        f->fim = novo;
-    }
+    novo = (Celula *)malloc(sizeof(Celula));
+	novo->dado = valor;
+	novo->prox = NULL;
+
+	//eh a primeira vez?
+	if (!f->fim) {
+		f->fim = novo;
+		f->inicio = novo;
+	} else {
+		f->fim->prox = novo;
+		f->fim = novo;
+	}
     retornar();
 }
 
@@ -58,19 +60,19 @@ void inserirFila(int valor, Fila *f){
 void removerFila(Fila *f){
     Celula *lixo;
 
-    if(f->inicio){
-        lixo = f->inicio;
-        f->inicio = f->inicio->prox;
-        free(lixo);
+    //fila existe?
+	if (f->inicio) {
+		lixo = f->inicio;
+		f->inicio = f->inicio->prox;
+		free(lixo);
 
-        if(!f->inicio){
-            f->fim = NULL;
-        }
-        retornar();
-    }
-    else{
-        printf("\nA FILA ESTA VAZIA!");
-    }
+		//caso apague o ultimo elemento
+		if (!f->inicio) {
+			f->fim = NULL;
+		}
+	} else {
+		printf("Fila vazia\n");
+	}
 }
 
 //Função de retorno
@@ -105,43 +107,66 @@ void menu(){
                 printf("\nDigite o código de chamada: ");
                 scanf("%d", &codigo);
                 inserirFila(codigo, &filaPrioritaria);
+                menu();
                 break;
             }
             case 3:{
-                if(fila.fim != NULL){
-                    printf("\nFILA NORMAL: INICIO: %d | FIM: %d", fila.inicio->dado, fila.fim->dado);
+                if(fila.fim!= NULL){
+                    printf("\nFILA NORMAL: PRIMEIRO: %d | ULTIMO: %d", fila.inicio->dado, fila.fim->dado);
+                    removerFila(&fila);
+                    printf("\t\nFila atualizada!");
+                    if(fila.fim!=NULL){
+                        printf("\nFILA NORMAL: PRIMEIRO: %d | ULTIMO: %d", fila.inicio->dado, fila.fim->dado);
+                    }
+                    else{
+                        printf("\nFILA NORMAL VAZIA!\n");
+                        system("pause");
+                        system("cls");
+                    }
+                    contador++;
                 }
-                removerFila(&fila);
-                contador++;
+                else{
+                    printf("\nFILA NORMAL VAZIA!\n");
+                    contador = 4;
+                }
                 if(filaPrioritaria.fim != NULL){
-                    printf("\nFILA PRIORITARIA: INICIO: %d | FIM: %d", filaPrioritaria.inicio->dado, filaPrioritaria.fim->dado);
+                    printf("\nFILA PRIORITARIA: PRIMEIRO: %d | ULTIMO: %d\n\n", filaPrioritaria.inicio->dado, filaPrioritaria.fim->dado);
+                    system("pause");
+                    system("cls");
                 }
+                else{
+                    printf("\nFILA PRIORITARIA VAZIA!\n");
+                    system("pause");
+                    system("cls");
+                }
+
                 if(contador == 4){
-                    removerFila(&filaPrioritaria);
-                    contador = 0;
+                    if(filaPrioritaria.fim!=NULL){
+                        removerFila(&filaPrioritaria);
+                        printf("\t\nFila atualizada!");
+                        if(filaPrioritaria.fim!=NULL){
+                            printf("\nFILA PRIORITARIA: PRIMEIRO: %d | ULTIMO: %d", fila.inicio->dado, fila.fim->dado);
+                        }
+                        else{
+                            printf("\nFILA PRIORITARIA VAZIA!\n");
+                            system("pause");
+                            system("cls");
+                        }
+                    }
                 }
-                if(fila.fim == NULL){
-                    printf("\n\tFILA NORMAL VAZIA\n");
-                    system("pause");
-                    system("cls");
-                }
-                if(filaPrioritaria.fim == NULL){
-                    printf("\n\tFILA PRIORITARIA VAZIA\n");
-                    system("pause");
-                    system("cls");
-                }
+                putchar('\n');
                 break;
             }
             case 4:{
-                escolha = 0;
                 break;
             }
-            default:{
+            default :{
                 printf("\nEscolha inválida!\n");
                 system("pause");
                 system("cls");
             }
         }
-    }while(escolha != 0);
+    }while(escolha != 4);
     printf("\n\tOBRIGADO POR USAR O SISTEMA!");
+    system("exit");
 }
