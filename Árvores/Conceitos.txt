@@ -3,3 +3,9 @@
 	• raiz "conhece" os filhos => tem os endereços dos seus filhos
 	• os filhos "não conhecem" o pai => não tem o endereço do pai
 		->O mecanismo de conexão entre filho-pai se dá pelo retorno do empilhamento.
+
+Possui as operações:
+1) Percorrer
+2) Inserção é nas folhas
+3) Pesquisa
+4) Deleção 
