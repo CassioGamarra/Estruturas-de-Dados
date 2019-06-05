@@ -6,6 +6,17 @@
 
 Possui as operações:
 1) Percorrer
-2) Inserção é nas folhas
+2) Inserção é nas folhas (nó que possui "null" nos filhos)
 3) Pesquisa
 4) Deleção 
+
+Vantagens:
+1) Se ordenada, otimiza o processo de pesquisa
+
+Desvantagens:
+1) Uso de recursão  
+
+
+
+Pesquisa e Busca -> Dependem da ordenação
+Recuperação -> WEB/DB = busca com relevância
