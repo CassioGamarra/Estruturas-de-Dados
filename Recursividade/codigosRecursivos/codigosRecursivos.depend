@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1559141960 source:d:\users\gnomo\documents\github\estruturas-de-dados\recursividade\codigosrecursivos\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<locale.h>
+
