@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1559746730 source:d:\users\gnomo\documents\github\estruturas-de-dados\Árvores\arvore\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+

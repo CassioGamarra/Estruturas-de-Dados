@@ -16,7 +16,36 @@ Vantagens:
 Desvantagens:
 1) Uso de recursão  
 
-
-
 Pesquisa e Busca -> Dependem da ordenação
 Recuperação -> WEB/DB = busca com relevância
+
+
+*Amplitude - ou largura
+*Profundidade
+
+Conceitos:
+	nó/nodo
+	raiz
+	filhos
+	níveis (a profundidade da árvore)
+	altura
+	folhas: nós sem filhos
+	sub-árvore: cada nó é uma sub-árvore
+	sub-raiz: é o nó pai/raiz de uma sub-árvore (se não possuir filhos, é uma folha e não uma sub-raiz)
+
+A computação prefere árvores binárias de pesquisa/busca
+	árvores ordenadas
+
+Regra padrão: menores à esquerda do raiz
+			  maiores à direia do raiz
+
+Números iguais é questão de if
+
+Percurso em amplitude
+Percurso em profundidade
+	
+3 tipos de percurso em profundidade:
+	- visita raiz; vai p/esquerda; vai p/direita; -> RED ou Pré-fixado
+	- vai p/ esquerda, visita raiz, vai p/direita; -> ERD ou Infixado
+	- vai p/ esquerda, vai p/ direita, visita raiz -> EDR ou pós-fixado
+
