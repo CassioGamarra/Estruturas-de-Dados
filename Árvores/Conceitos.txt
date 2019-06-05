@@ -1,0 +1,5 @@
+~Árvores: abstratas não lineares
+	• 1 nó  pai/raiz e 0 ou "n" nós filhos
+	• raiz "conhece" os filhos => tem os endereços dos seus filhos
+	• os filhos "não conhecem" o pai => não tem o endereço do pai
+		->O mecanismo de conexão entre filho-pai se dá pelo retorno do empilhamento.
