@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1560389879 source:d:\users\gnomo\documents\github\estruturas-de-dados\Árvores\exerciciosarvores\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<locale.h>
+

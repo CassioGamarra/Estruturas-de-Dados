@@ -38,7 +38,13 @@ int main(){
     mostrarFolhas(raiz);
     printf("\n\nDigite um valor para pesquisar: ");
     scanf("%d", &valor);
-    pesquisar(raiz, valor);
+    if(pesquisar(raiz, valor)){
+        printf("\nAchei o valor %d no endereco %p", valor, pesquisar(raiz, valor));
+    }
+    else{
+        printf("\nNao achei!");
+    }
+
     return 0;
 }
 
@@ -131,12 +137,9 @@ Arvore *pesquisar(Arvore *r, int valor){
         if(r->dado == valor){
             return r;
         }
-        if(r->esq){
-            pesquisar(r->esq, valor);
+        if(valor < r->dado){
+            return pesquisar(r->esq, valor);
         }
-        if(r->dir){
-            pesquisar(r->dir, valor);
-        }
+        return pesquisar(r->dir, valor);
     }
-    return NULL;
 }
