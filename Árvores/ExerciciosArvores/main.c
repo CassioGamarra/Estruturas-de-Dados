@@ -12,6 +12,9 @@ typedef struct no{
 
 //Declaração das funções
 Arvore *inserir(int valor, Arvore *r);
+Arvore *podar(Arvore *r);
+Arvore *excluir(int valor, Arvore *r);
+Arvore *removerFolha(Arvore *r);
 
 void exibirERD(Arvore *r);
 
@@ -29,12 +32,15 @@ int main(){
     }
     printf("Valores na árvore:\n");
     exibirERD(raiz);
-    printf("\nDigite um valor para pesquisa: ");
+    printf("\nDigite um valor para pesquisar os multiplos: ");
     scanf("%d", &valor);
     printf("Valores multiplos de %d: %d", valor,nosMultiplos(raiz, valor));
-    printf("\nDigite um valor para pesquisa: ");
+    printf("\nDigite um valor para pesquisar o nível: ");
     scanf("%d", &valor);
     printf("\nNível do valor %d: %d", valor, procurarNivel(raiz, valor));
+    raiz = podar(raiz);
+    printf("\nValores na árvore após a poda:\n");
+    exibirERD(raiz);
     return 0;
 }
 
@@ -43,6 +49,7 @@ int main(){
 //Inserir
 Arvore *inserir(int valor, Arvore *r){
     if(r){
+        if(valor == r->dado) return r;
         if(valor < r->dado){
             r->esq = inserir(valor, r->esq);
         }
@@ -69,7 +76,40 @@ void exibirERD(Arvore *r){
         exibirERD(r->dir);
     }
 }
+//Excluir valor
+Arvore *excluir(int valor, Arvore *r){
+    if(r){
+        if(valor == r->dado){
+            Arvore *novoPai, *tmp, *rTmp;
+            //Nó folha
+            if(!r->esq && !r->dir){
+                free(r);
+                return NULL;
+            }
+            //Verifica se tem filhos na esquerda
+            if(r->esq){
+                novoPai = r->esq;
+                tmp = r->dir;
+                for(rTmp = novoPai; rTmp->dir; rTmp = rTmp->dir);
 
+                rTmp->dir = tmp;
+            }
+            else{
+                novoPai = r->dir;
+            }
+            free(r);
+            return novoPai;
+        }
+        if(valor < r->dado){
+            r->esq = excluir(valor, r->esq);
+        }
+        else{
+            r->dir = excluir(valor, r->dir);
+        }
+        return r;
+    }
+    return NULL;
+}
 //Exercicios\\
 
 //Exercicio 1
@@ -102,4 +142,36 @@ int procurarNivel(Arvore *r, int valor){
         }
     }
     return -1;
+}
+
+//Exercício 3
+Arvore *podar(Arvore *r){
+    if(r){
+        if(!r->dir && !r->dir){
+            free(r);
+            return NULL;
+        }
+        else{
+            r->esq = podar(r->esq);
+            r->dir = podar(r->dir);
+            return r;
+        }
+    }
+    return NULL;
+}
+
+//Exercício 4
+Arvore *removerFolha(Arvore *r){
+    if(r){
+        if(!r->dir && !r->dir){
+            excluir(r->dado, r);
+            return NULL;
+        }
+        else{
+            r->esq = podar(r->esq);
+            r->dir = podar(r->dir);
+            return r;
+        }
+    }
+    return NULL;
 }
